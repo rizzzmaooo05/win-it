@@ -11,7 +11,6 @@ import scissor from "@/assets/images/scissor.png";
 import winitAlg from "@/libs/winitAlg";
 
 export default function Main({ profile, setProfile, getCashFunc }) {
-
   const [isChange, setIsChange] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
   const [isPlayAgain, setIsPlayAgain] = useState(false);
@@ -26,7 +25,7 @@ export default function Main({ profile, setProfile, getCashFunc }) {
       setIsChange(!isChange);
       setIsPlayAgain(!isPlayAgain);
 
-      const winitProfile = JSON.parse(profile)
+      const winitProfile = JSON.parse(profile);
       const cashInit = winitProfile.cash;
       const result = winitAlg(cashInit, taruhan, player);
 
@@ -55,13 +54,13 @@ export default function Main({ profile, setProfile, getCashFunc }) {
   return (
     <main className=" w-full flex flex-col gap-2 justify-center items-center text-slate-900">
       <div className="flex gap-4 md:gap-10 items-center">
-        <div className="w-24 h-36 md:w-52 md:h-72 border-[2px] md:border-[4px] border-slate-900 overflow-hidden ">
+        <div className="w-24 h-36 md:w-52 md:h-72 border-[2px] md:border-[4px] border-slate-900 overflow-hidden relative">
           {!isChange && (
             <Image
               src={qm}
               width={500}
               height={500}
-              className="object-cover transition-all duration-1000"
+              className="w-full h-fit transition-all duration-1000"
               alt="/"
             />
           )}
@@ -72,21 +71,24 @@ export default function Main({ profile, setProfile, getCashFunc }) {
               }
               width={500}
               height={500}
-              className="object-cover transition-all duration-1000"
+              className="w-full h-fit transition-all duration-1000"
               alt="/"
             />
           )}
+          <p className="absolute bottom-0 w-full bg-slate-900 text-white p-2 text-center text-xs md:text-lg">
+            Pemain
+          </p>
         </div>
 
         <p className="text-2xl md:text-4xl font-bold">VS</p>
 
-        <div className="w-24 h-36 md:w-52 md:h-72 border-[2px] md:border-[4px] border-slate-900 overflow-hidden ">
+        <div className="w-24 h-36 md:w-52 md:h-72 border-[2px] md:border-[4px] border-slate-900 overflow-hidden relative">
           {!isChange && (
             <Image
               src={qm}
               width={500}
               height={500}
-              className="object-cover transition-all duration-1000"
+              className="w-full h-fit transition-all duration-1000"
               alt="/"
             />
           )}
@@ -102,9 +104,12 @@ export default function Main({ profile, setProfile, getCashFunc }) {
               alt="/"
               width={500}
               height={500}
-              className="object-contain transition-all duration-1000"
+              className="w-full h-fit transition-all duration-1000"
             />
           )}
+          <p className="absolute bottom-0 w-full bg-slate-900 text-white p-2 text-center text-xs md:text-lg">
+            Komputer
+          </p>
         </div>
       </div>
       <div className="flex gap-4 md:gap-10 items-center mt-4">
@@ -206,7 +211,6 @@ export default function Main({ profile, setProfile, getCashFunc }) {
             10000
           </button>
         )}
-
       </div>
       {!isPlay && (
         <button
