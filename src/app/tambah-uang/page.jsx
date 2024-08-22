@@ -21,7 +21,7 @@ export default function Page() {
     if (winitProfile) {
       setProfile(winitProfile);
       setUang(JSON.parse(winitProfile)?.cash);
-      setIsJualRumah(JSON.parse(winitProfile)?.isJualMobil)
+      setIsJualRumah(JSON.parse(winitProfile)?.isJualRumah)
       setIsPinjamanBank(JSON.parse(winitProfile)?.isPinjamanBank)
       setIsJualMobil(JSON.parse(winitProfile)?.isJualMobil)
       setIsJualMotor(JSON.parse(winitProfile)?.isJualMotor)
@@ -41,7 +41,7 @@ export default function Page() {
       );
       setProfile(JSON.stringify(winitProfile));
       setUang(winitProfile.cash);
-      setIsJualRumah(winitProfile.isJualMobil)
+      setIsJualRumah(winitProfile.isJualRumah )
       setIsPinjamanBank(winitProfile.isPinjamanBank)
       setIsJualMobil(winitProfile.isJualMobil)
       setIsJualMotor(winitProfile.isJualMotor)
