@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Image from "next/image";
 import house from "@/assets/images/house.png";
@@ -9,24 +9,7 @@ import car from "@/assets/images/car.png";
 import motor from "@/assets/images/motor.png";
 import ginjal from "@/assets/images/ginjal.png";
 
-export default function TambahUang({ cashInit, getCashFunc, profile, setProfile }) {
-
-  const [isJualRumah, setIsJualRumah] = useState(
-    JSON.parse(profile).isJualRumah ?? false
-  );
-  const [isPinjamanBank, setIsPinjamanBank] = useState(
-    JSON.parse(profile).isPinjamanBank ?? false
-  );
-  const [isJualMobil, setIsJualMobil] = useState(
-    JSON.parse(profile).isJualMobil ?? false
-  );
-  const [isJualMotor, setIsJualMotor] = useState(
-    JSON.parse(profile).isJualMotor ?? false
-  );
-  const [isJualGinjal, setIsJualGinjal] = useState(
-    JSON.parse(profile).isJualGinjal ?? false
-  );
-
+export default function TambahUang({ cashInit, getCashFunc, profile, setProfile, isJualRumah, setIsJualRumah,  isPinjamanBank, setIsPinjamanBank, isJualMobil, setIsJualMobil, isJualMotor, setIsJualMotor, isJualGinjal, setIsJualGinjal }) {
   function handleClick(prop, getCash, func, setFunc) {
     const winitProfile = JSON.parse(profile);
     setFunc(!func);

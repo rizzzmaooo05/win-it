@@ -7,7 +7,7 @@ import Profile from "@/components/Profile";
 import Main from "@/components/Main";
 
 export default function Home() {
-  const [profile, setProfile] = useState("{}");
+  const [profile, setProfile] = useState('{"cash":10000,"isJualRumah":false,"isPinjamanBank":false,"isJualMobil":false,"isJualMotor":false,"isJualGinjal":false}');
   const [uang, setUang] = useState('?????');
 
   useEffect(() => {
@@ -30,8 +30,7 @@ export default function Home() {
         JSON.stringify(winitProfile)
       );
       setProfile(JSON.stringify(winitProfile));
-      setUang(JSON.parse(winitProfile).cash)
-      console.log(JSON.parse(winitProfile).cash)
+      setUang(winitProfile.cash)
     }
   }, []);
 
