@@ -7,7 +7,7 @@ import Profile from "@/components/Profile";
 import Main from "@/components/Main";
 
 export default function Home() {
-  const [profile, setProfile] = useState('{"cash":10000,"isJualRumah":false,"isPinjamanBank":false,"isJualMobil":false,"isJualMotor":false,"isJualGinjal":false}');
+  const [profile, setProfile] = useState('{}');
   const [uang, setUang] = useState('?????');
 
   useEffect(() => {

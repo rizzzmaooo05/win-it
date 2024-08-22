@@ -7,7 +7,7 @@ import Profile from "@/components/Profile";
 import TambahUang from "@/components/TambahUang";
 
 export default function Page() {
-  const [profile, setProfile] = useState('{"cash":10000,"isJualRumah":false,"isPinjamanBank":false,"isJualMobil":false,"isJualMotor":false,"isJualGinjal":false}');
+  const [profile, setProfile] = useState('{}');
   const [uang, setUang] = useState("?????");
   const [isJualRumah, setIsJualRumah] = useState(true);
   const [isPinjamanBank, setIsPinjamanBank] = useState(true);
