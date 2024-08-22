@@ -20,7 +20,7 @@ export default function TambahUang({ cashInit, getCashFunc, profile, setProfile,
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4 justify-center items-center mx-auto text-center w-[70%] px-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-center items-center mx-auto text-center w-[70%] px-4 mt-4">
       <div className="border-[4px] border-slate-900 flex flex-col gap-1 rounded-lg overflow-hidden p-1">
         <Image
           src={house}
