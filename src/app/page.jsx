@@ -8,7 +8,7 @@ import Main from "@/components/Main";
 
 export default function Home() {
   const [profile, setProfile] = useState("{}");
-  const [uang, setUang] = useState(0);
+  const [uang, setUang] = useState('?????');
 
   useEffect(() => {
     const winitProfile = window.localStorage.getItem("winit-profile");
@@ -31,6 +31,7 @@ export default function Home() {
       );
       setProfile(JSON.stringify(winitProfile));
       setUang(JSON.parse(winitProfile).cash)
+      console.log(JSON.parse(winitProfile).cash)
     }
   }, []);
 
@@ -42,7 +43,7 @@ export default function Home() {
     <>
       <Header />
       <Profile uang={uang} />
-      <Main getCashFunc={setUang} />
+      <Main getCashFunc={setUang} profile={profile} setProfile={setProfile}/>
     </>
   );
 }

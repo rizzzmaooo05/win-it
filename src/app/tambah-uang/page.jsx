@@ -8,12 +8,14 @@ import TambahUang from "@/components/TambahUang";
 
 export default function Page() {
   const [profile, setProfile] = useState("{}");
+  const [uang, setUang] = useState("?????");
 
   useEffect(() => {
     const winitProfile = window.localStorage.getItem("winit-profile");
 
     if (winitProfile) {
       setProfile(winitProfile);
+      setUang(JSON.parse(winitProfile).cash);
     } else {
       const winitProfile = {
         cash: 10000,
@@ -28,6 +30,7 @@ export default function Page() {
         JSON.stringify(winitProfile)
       );
       setProfile(JSON.stringify(winitProfile));
+      setUang(JSON.parse(winitProfile).cash);
     }
   }, []);
 
@@ -35,12 +38,16 @@ export default function Page() {
     window.localStorage.setItem("winit-profile", profile);
   }, [profile]);
 
-  const [uang, setUang] = useState(JSON.parse(profile).cash ?? 10000);
   return (
     <>
       <Header />
       <Profile uang={uang} />
-      <TambahUang cashInit={uang} getCashFunc={setUang} />
+      <TambahUang
+        cashInit={uang}
+        getCashFunc={setUang}
+        profile={profile}
+        setProfile={setProfile}
+      />
     </>
   );
 }

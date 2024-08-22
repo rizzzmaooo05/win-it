@@ -9,8 +9,7 @@ import car from "@/assets/images/car.png";
 import motor from "@/assets/images/motor.png";
 import ginjal from "@/assets/images/ginjal.png";
 
-export default function TambahUang({ cashInit, getCashFunc }) {
-  const [profile, setProfile] = useState("{}");
+export default function TambahUang({ cashInit, getCashFunc, profile, setProfile }) {
 
   const [isJualRumah, setIsJualRumah] = useState(
     JSON.parse(profile).isJualRumah ?? false
@@ -27,32 +26,6 @@ export default function TambahUang({ cashInit, getCashFunc }) {
   const [isJualGinjal, setIsJualGinjal] = useState(
     JSON.parse(profile).isJualGinjal ?? false
   );
-
-  useEffect(() => {
-    const winitProfile = window.localStorage.getItem("winit-profile");
-
-    if (winitProfile) {
-      setProfile(winitProfile);
-    } else {
-      const winitProfile = {
-        cash: 10000,
-        isJualRumah: false,
-        isPinjamanBank: false,
-        isJualMobil: false,
-        isJualMotor: false,
-        isJualGinjal: false,
-      };
-      window.localStorage.setItem(
-        "winit-profile",
-        JSON.stringify(winitProfile)
-      );
-      setProfile(JSON.stringify(winitProfile));
-    }
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem("winit-profile", profile);
-  }, [profile]);
 
   function handleClick(prop, getCash, func, setFunc) {
     const winitProfile = JSON.parse(profile);

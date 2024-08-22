@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import qm from "@/assets/images/question-mark.png";
 import rock from "@/assets/images/rock.png";
@@ -10,8 +10,7 @@ import scissor from "@/assets/images/scissor.png";
 
 import winitAlg from "@/libs/winitAlg";
 
-export default function Main({ getCashFunc }) {
-  const [profile, setProfile] = useState('{}')
+export default function Main({ profile, setProfile, getCashFunc }) {
 
   const [isChange, setIsChange] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
@@ -20,29 +19,6 @@ export default function Main({ getCashFunc }) {
   const [player, setPlayer] = useState("");
   const [computer, setComputer] = useState("");
   const [taruhan, setTaruhan] = useState(0);
-
-  useEffect(() => {
-    const winitProfile = window.localStorage.getItem('winit-profile')
-
-    if(winitProfile) {
-      setProfile(winitProfile)
-    } else {
-      const winitProfile = {
-        cash: 10000,
-        isJualRumah: false,
-        isPinjamanBank: false,
-        isJualMobil: false,
-        isJualMotor: false,
-        isJualGinjal: false
-      }
-      window.localStorage.setItem('winit-profile', JSON.stringify(winitProfile))
-      setProfile(JSON.stringify(winitProfile))
-    }
-  }, [])
-
-  useEffect(() => {
-    window.localStorage.setItem('winit-profile', profile)
-  }, [profile])
 
   function handlePlay() {
     setIsPlay(!isPlay);
@@ -86,6 +62,7 @@ export default function Main({ getCashFunc }) {
               width={500}
               height={500}
               className="object-cover transition-all duration-1000"
+              alt="/"
             />
           )}
           {isChange && (
@@ -96,6 +73,7 @@ export default function Main({ getCashFunc }) {
               width={500}
               height={500}
               className="object-cover transition-all duration-1000"
+              alt="/"
             />
           )}
         </div>
@@ -109,6 +87,7 @@ export default function Main({ getCashFunc }) {
               width={500}
               height={500}
               className="object-cover transition-all duration-1000"
+              alt="/"
             />
           )}
           {isChange && (
@@ -120,6 +99,7 @@ export default function Main({ getCashFunc }) {
                   ? rock
                   : scissor
               }
+              alt="/"
               width={500}
               height={500}
               className="object-contain transition-all duration-1000"
