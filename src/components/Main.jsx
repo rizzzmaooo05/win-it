@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import qm from "@/assets/images/question-mark.png";
 import rock from "@/assets/images/rock.png";
@@ -11,6 +11,8 @@ import scissor from "@/assets/images/scissor.png";
 import winitAlg from "@/libs/winitAlg";
 
 export default function Main({ getCashFunc }) {
+  const [profile, setProfile] = useState('{}')
+
   const [isChange, setIsChange] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
   const [isPlayAgain, setIsPlayAgain] = useState(false);
@@ -19,21 +21,44 @@ export default function Main({ getCashFunc }) {
   const [computer, setComputer] = useState("");
   const [taruhan, setTaruhan] = useState(0);
 
+  useEffect(() => {
+    const winitProfile = window.localStorage.getItem('winit-profile')
+
+    if(winitProfile) {
+      setProfile(winitProfile)
+    } else {
+      const winitProfile = {
+        cash: 10000,
+        isJualRumah: false,
+        isPinjamanBank: false,
+        isJualMobil: false,
+        isJualMotor: false,
+        isJualGinjal: false
+      }
+      window.localStorage.setItem('winit-profile', JSON.stringify(winitProfile))
+      setProfile(JSON.stringify(winitProfile))
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('winit-profile', profile)
+  }, [profile])
+
   function handlePlay() {
     setIsPlay(!isPlay);
     setTimeout(() => {
       setIsChange(!isChange);
       setIsPlayAgain(!isPlayAgain);
 
-      const profile = JSON.parse(window.localStorage.getItem("winit-profile"));
-      const cashInit = profile.cash;
+      const winitProfile = JSON.parse(profile)
+      const cashInit = winitProfile.cash;
       const result = winitAlg(cashInit, taruhan, player);
 
       setComputer(result.computer);
       getCashFunc(result.cashNow);
 
-      profile.cash = result.cashNow;
-      window.localStorage.setItem("winit-profile", JSON.stringify(profile));
+      winitProfile.cash = result.cashNow;
+      setProfile(JSON.stringify(winitProfile));
     }, 3000);
   }
 

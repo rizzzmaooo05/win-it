@@ -7,11 +7,17 @@ import Profile from "@/components/Profile";
 import Main from "@/components/Main";
 
 export default function Home() {
+  const [profile, setProfile] = useState("{}");
+  const [uang, setUang] = useState(0);
+
   useEffect(() => {
-    if (window.localStorage.getItem("winit-profile")) {
-      console.log(window?.localStorage.getItem("winit-profile"));
+    const winitProfile = window.localStorage.getItem("winit-profile");
+
+    if (winitProfile) {
+      setProfile(winitProfile);
+      setUang(JSON.parse(winitProfile).cash)
     } else {
-      const profile = {
+      const winitProfile = {
         cash: 10000,
         isJualRumah: false,
         isPinjamanBank: false,
@@ -19,20 +25,24 @@ export default function Home() {
         isJualMotor: false,
         isJualGinjal: false,
       };
-      window.localStorage.setItem("winit-profile", JSON.stringify(profile));
-      console.log(window.localStorage.getItem("winit-profile"));
+      window.localStorage.setItem(
+        "winit-profile",
+        JSON.stringify(winitProfile)
+      );
+      setProfile(JSON.stringify(winitProfile));
+      setUang(JSON.parse(winitProfile).cash)
     }
   }, []);
-  const [uang, setUang] = useState(
-    JSON.parse(window.localStorage.getItem("winit-profile"))?.cash ?? 10000
-  );
+
+  useEffect(() => {
+    window.localStorage.setItem("winit-profile", profile);
+  }, [profile]);
+
   return (
     <>
       <Header />
-      <Profile
-        uang={uang}
-      />
-      <Main getCashFunc={setUang}/>
+      <Profile uang={uang} />
+      <Main getCashFunc={setUang} />
     </>
   );
 }

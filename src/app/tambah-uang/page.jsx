@@ -7,11 +7,15 @@ import Profile from "@/components/Profile";
 import TambahUang from "@/components/TambahUang";
 
 export default function Page() {
+  const [profile, setProfile] = useState("{}");
+
   useEffect(() => {
-    if (window.localStorage.getItem("winit-profile")) {
-      console.log(window.localStorage.getItem("winit-profile"));
+    const winitProfile = window.localStorage.getItem("winit-profile");
+
+    if (winitProfile) {
+      setProfile(winitProfile);
     } else {
-      const profile = {
+      const winitProfile = {
         cash: 10000,
         isJualRumah: false,
         isPinjamanBank: false,
@@ -19,13 +23,19 @@ export default function Page() {
         isJualMotor: false,
         isJualGinjal: false,
       };
-      window.localStorage.setItem("winit-profile", JSON.stringify(profile));
-      console.log(window.localStorage.getItem("winit-profile"));
+      window.localStorage.setItem(
+        "winit-profile",
+        JSON.stringify(winitProfile)
+      );
+      setProfile(JSON.stringify(winitProfile));
     }
   }, []);
-  const [uang, setUang] = useState(
-    JSON.parse(window.localStorage.getItem("winit-profile"))?.cash ?? 10000
-  );
+
+  useEffect(() => {
+    window.localStorage.setItem("winit-profile", profile);
+  }, [profile]);
+
+  const [uang, setUang] = useState(JSON.parse(profile).cash ?? 10000);
   return (
     <>
       <Header />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Image from "next/image";
 import house from "@/assets/images/house.png";
@@ -9,30 +9,58 @@ import car from "@/assets/images/car.png";
 import motor from "@/assets/images/motor.png";
 import ginjal from "@/assets/images/ginjal.png";
 
-export default function TambahUang( { cashInit, getCashFunc }) {
+export default function TambahUang({ cashInit, getCashFunc }) {
+  const [profile, setProfile] = useState("{}");
+
   const [isJualRumah, setIsJualRumah] = useState(
-    JSON.parse(window.localStorage.getItem("winit-profile"))?.isJualRumah ?? false
+    JSON.parse(profile).isJualRumah ?? false
   );
   const [isPinjamanBank, setIsPinjamanBank] = useState(
-    JSON.parse(window.localStorage.getItem("winit-profile"))?.isPinjamanBank ?? false
+    JSON.parse(profile).isPinjamanBank ?? false
   );
   const [isJualMobil, setIsJualMobil] = useState(
-    JSON.parse(window.localStorage.getItem("winit-profile"))?.isJualMobil ?? false
+    JSON.parse(profile).isJualMobil ?? false
   );
   const [isJualMotor, setIsJualMotor] = useState(
-    JSON.parse(window.localStorage.getItem("winit-profile"))?.isJualMotor ?? false
+    JSON.parse(profile).isJualMotor ?? false
   );
   const [isJualGinjal, setIsJualGinjal] = useState(
-    JSON.parse(window.localStorage.getItem("winit-profile"))?.isJualGinjal ?? false
+    JSON.parse(profile).isJualGinjal ?? false
   );
 
+  useEffect(() => {
+    const winitProfile = window.localStorage.getItem("winit-profile");
+
+    if (winitProfile) {
+      setProfile(winitProfile);
+    } else {
+      const winitProfile = {
+        cash: 10000,
+        isJualRumah: false,
+        isPinjamanBank: false,
+        isJualMobil: false,
+        isJualMotor: false,
+        isJualGinjal: false,
+      };
+      window.localStorage.setItem(
+        "winit-profile",
+        JSON.stringify(winitProfile)
+      );
+      setProfile(JSON.stringify(winitProfile));
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("winit-profile", profile);
+  }, [profile]);
+
   function handleClick(prop, getCash, func, setFunc) {
-    const profile = JSON.parse(window.localStorage.getItem("winit-profile"));
+    const winitProfile = JSON.parse(profile);
     setFunc(!func);
-    getCashFunc(cashInit + getCash)
-    profile[prop] = !func;
-    profile['cash'] = cashInit + getCash
-    window.localStorage.setItem("winit-profile", JSON.stringify(profile));
+    getCashFunc(cashInit + getCash);
+    winitProfile[prop] = !func;
+    winitProfile["cash"] = cashInit + getCash;
+    setProfile(JSON.stringify(winitProfile));
   }
 
   return (
@@ -78,7 +106,12 @@ export default function TambahUang( { cashInit, getCashFunc }) {
           <button
             className="text-white p-2 m-1 rounded-md bg-slate-900"
             onClick={() =>
-              handleClick("isPinjamanBank", 5000, isPinjamanBank, setIsPinjamanBank)
+              handleClick(
+                "isPinjamanBank",
+                5000,
+                isPinjamanBank,
+                setIsPinjamanBank
+              )
             }
           >
             Pinjaman Bank (+5000)
@@ -86,8 +119,8 @@ export default function TambahUang( { cashInit, getCashFunc }) {
         )}
         {isPinjamanBank && (
           <button
-          className="text-white p-2 m-1 rounded-md bg-slate-500"
-          disabled
+            className="text-white p-2 m-1 rounded-md bg-slate-500"
+            disabled
           >
             Pinjaman Bank (+5000)
           </button>
@@ -114,8 +147,8 @@ export default function TambahUang( { cashInit, getCashFunc }) {
         )}
         {isJualMobil && (
           <button
-          className="text-white p-2 m-1 rounded-md bg-slate-500"
-          disabled
+            className="text-white p-2 m-1 rounded-md bg-slate-500"
+            disabled
           >
             Jual Mobil (+8000)
           </button>
@@ -142,8 +175,8 @@ export default function TambahUang( { cashInit, getCashFunc }) {
         )}
         {isJualMotor && (
           <button
-          className="text-white p-2 m-1 rounded-md bg-slate-500"
-          disabled
+            className="text-white p-2 m-1 rounded-md bg-slate-500"
+            disabled
           >
             Jual Motor (+3000)
           </button>
@@ -170,8 +203,8 @@ export default function TambahUang( { cashInit, getCashFunc }) {
         )}
         {isJualGinjal && (
           <button
-          className="text-white p-2 m-1 rounded-md bg-slate-500"
-          disabled
+            className="text-white p-2 m-1 rounded-md bg-slate-500"
+            disabled
           >
             Jual Ginjal (+15000)
           </button>
